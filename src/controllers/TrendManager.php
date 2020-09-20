@@ -4,7 +4,7 @@ namespace Saraceno\JsonRpc\Controllers;
 
 interface TrendManager 
 {
-    public function index($request);
+    public function evaluate(string $method);
 }
 
 ?>
