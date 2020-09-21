@@ -4,11 +4,12 @@ namespace Saraceno\JsonRpc\Services;
 include("Response.php");
 include("exceptions/MethodException.php");
 
-use GuzzleHttp\Exception\ServerException;
-use Saraceno\JsonRpc\Exceptions\MethodException;
+use Exception;
 use Saraceno\JsonRpc\Services\Request;
 use Saraceno\JsonRpc\Services\Response;
 use Saraceno\JsonRpc\Services\EmptyResponse;
+use Saraceno\JsonRpc\Exceptions\MethodException;
+use Saraceno\JsonRpc\Exceptions\InvalidArgumentException;
 
 class JsonRpcServer 
 {
@@ -30,22 +31,15 @@ class JsonRpcServer
         if (is_null($Request->getId())) {
             return $this->handleNotification($Request);
         }
-
         try {
             $result = $this->SubjectClass->invoke($Request);
         } catch (MethodException $Exception) {
             return new Response($Request->getId(), Response::METHOD_NOT_FOUND, [], $Exception->getMessage());
+        } catch (InvalidArgumentException $Exception) {
+            return new Response($Request->getId(), Response::INVALID_ARGUMENTS, [], $Exception->getMessage());
         }
-
         return new Response($Request->getId(), Response::SUCCESS, $result);
 
-                // } catch (TooManyParameters $Exception) {
-        //     return ErrorResponse::invalidParameters($Request->getId(), 'Too many parameters');
-        // } catch (InvalidParameter $Exception) {
-        //     return ErrorResponse::invalidParameters($Request->getId(), $Exception->getMessage() ?: null);
-        // } catch (MissingParameter $Exception) {
-        //     return ErrorResponse::invalidParameters($Request->getId(), $Exception->getMessage() ?: null);
-        // }
     }
 
     /**
@@ -56,7 +50,7 @@ class JsonRpcServer
     {
         try {
             $this->SubjectClass->invoke($Request);
-        } catch (ServerException $Exception) {
+        } catch (Exception $Exception) {
             // Do not report errors on notifications
         }
 
