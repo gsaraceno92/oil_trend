@@ -12,4 +12,12 @@ class EmptyResponse
     {
         return "";
     }
+
+    /**
+     * @return array
+     */
+    public function asArray()
+    {
+        return [];
+    }
 }

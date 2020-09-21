@@ -7,9 +7,11 @@ use Saraceno\JsonRpc\Services\Response;
 
 class InvalidArgumentException extends Exception
 {
-    public function __construct()
+    protected $message = 'Invalid argument.';
+
+    public function __construct($message = null)
     {
-        parent::__construct('Invalid argument.', Response::INVALID_ARGUMENTS);
+        parent::__construct($message, Response::INVALID_ARGUMENTS);
     }
 
     public function setMessage($message){

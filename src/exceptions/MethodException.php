@@ -7,9 +7,12 @@ use Saraceno\JsonRpc\Services\Response;
 
 class MethodException extends Exception
 {
-    public function __construct()
+    protected $message = 'Method not found';
+
+    public function __construct($message = null)
     {
-        parent::__construct('Method not found', Response::METHOD_NOT_FOUND);
+        $message = is_null($message) ? $this->message : $message;
+        parent::__construct($message, Response::METHOD_NOT_FOUND);
     }
 
     public function setMessage($message){
