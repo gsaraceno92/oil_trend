@@ -16,6 +16,7 @@ class OilTrend implements TrendManager
      * Get data from api filtering by date params
      *
      * @param Request $request
+     * @throws InvalidArgumentException
      * @return array
      */
     public function GetOilPriceTrend(Request $request)
@@ -56,6 +57,7 @@ class OilTrend implements TrendManager
         return;
     }
 
+
     public function invoke(Request $request)
     {
         $method = $request->getMethod();
@@ -68,9 +70,14 @@ class OilTrend implements TrendManager
         return $this->$method($request);
     }
 
+    /**
+     * Validate keys params
+     *
+     * @param array $params
+     * @return bool
+     */
     private function validateParams(array $params)
     {
-
         $keys = ['startDateISO8601', 'endDateISO8601'];
         // echo json_encode(array_diff($keys,  array_keys($params)))  , json_encode(array_diff(array_keys($params), $keys));
         if (!empty(array_diff($keys,  array_keys($params))) || !empty(array_diff(array_keys($params), $keys))) {
@@ -79,6 +86,13 @@ class OilTrend implements TrendManager
         return true;
     }
 
+    /**
+     * Validate date param
+     *
+     * @param string $date
+     * @param string $format
+     * @return bool
+     */
     private static function validateDate($date, $format = 'Y-m-d')
     {
         $d = DateTime::createFromFormat($format, $date);
