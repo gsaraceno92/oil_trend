@@ -31,9 +31,11 @@ These are the instructions to follow to set up the project on your local environ
 
 2.  Use `docker image ls` and `docker container ls` (or `docker ps`) to see your images and the running containers
 
-3.  Enter into the container with
+3.  Install package dependencies using composer:
 
-        docker exec -it php_oil_trend bash
+        docker exec -it php_oil_trend composer install
+
+**Note:** enter in the container using `docker exec -it php_oil_trend bash`
 
 ### **Starting and stopping containers**
 
