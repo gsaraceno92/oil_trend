@@ -1,7 +1,6 @@
 <?php
 
 namespace Saraceno\JsonRpc\Services;
-include("exceptions/InvalidArgumentException.php");
 
 use Saraceno\JsonRpc\Exceptions\MethodException;
 use Saraceno\JsonRpc\Exceptions\InvalidArgumentException;
@@ -67,7 +66,7 @@ class Request
     /**
      * @param array $params
      */
-    private function setParams($params)
+    private function setParams(array $params)
     {
         if (!is_array($params)) {
             throw new InvalidArgumentException('Member params should be either an object or an array');

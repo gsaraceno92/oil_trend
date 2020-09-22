@@ -1,13 +1,12 @@
 <?php
 
 namespace Saraceno\JsonRpc\Services;
-include("Response.php");
-include("exceptions/MethodException.php");
 
 use Exception;
 use Saraceno\JsonRpc\Services\Request;
 use Saraceno\JsonRpc\Services\Response;
 use Saraceno\JsonRpc\Services\EmptyResponse;
+use Saraceno\JsonRpc\Controllers\TrendManager;
 use Saraceno\JsonRpc\Exceptions\MethodException;
 use Saraceno\JsonRpc\Exceptions\InvalidArgumentException;
 
@@ -16,9 +15,9 @@ class JsonRpcServer
     /**
      * @var mixed
      */
-    private $SubjectClass;
+    private TrendManager $SubjectClass;
 
-    public function __construct($subject)
+    public function __construct(TrendManager $subject)
     {
         $this->SubjectClass = $subject;
     }

@@ -1,10 +1,6 @@
 <?php
 
-require_once 'vendor/autoload.php';
-include("controllers/OilTrend.php");
-include("services/Request.php");
-include("services/jsonRpcServer.php");
-include("services/Validator.php");
+require 'vendor/autoload.php';
 
 
 use Saraceno\JsonRpc\Controllers\OilTrend;
@@ -26,8 +22,8 @@ $requestData = json_decode(file_get_contents('php://input'), true);
 $validator = new Validator($requestData);
 $validation = $validator->handleRequest();
 
-if (!empty($validation)) {
-    echo $validation->asString();
+if ($validator->error()) {
+    echo $validator->responseError()->asString();
     die();
 }
 

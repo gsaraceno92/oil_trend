@@ -1,14 +1,12 @@
 <?php
 
 namespace Saraceno\JsonRpc\Controllers;
-include("TrendManager.php");
 
 use DateTime;
 use GuzzleHttp\Client as GuzzleClient;
 use Saraceno\JsonRpc\Services\Request;
 use Saraceno\JsonRpc\Exceptions\MethodException;
 use Saraceno\JsonRpc\Exceptions\InvalidArgumentException;
-use stdClass;
 
 class OilTrend implements TrendManager
 {

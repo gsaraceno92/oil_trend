@@ -12,6 +12,8 @@ class Validator
     private $data;
     private Request $request;
     
+    protected $error;
+    
     private const VERSION = '2.0';
 
     public function __construct($data)
@@ -42,9 +44,11 @@ class Validator
             self::validateData($this->data);
             $request = Request::getRequest($this->data);
         } catch (InvalidArgumentException $exception) {
-            return new Response($this->data['id'], Response::INVALID_REQUEST, [], $exception->getMessage());
+            $this->error = new Response($this->data['id'], Response::INVALID_REQUEST, [], $exception->getMessage());
+            return;
         } catch (MethodException $exception) {
-            return new Response($this->data['id'], Response::INVALID_ARGUMENTS, [], $exception->getMessage());
+            $this->error = new Response($this->data['id'], Response::INVALID_ARGUMENTS, [], $exception->getMessage());
+            return;
         }
         
         $this->request = $request;
@@ -61,4 +65,13 @@ class Validator
         return $this->request;
     }
 
+    public function error()
+    {
+        return !!$this->error;
+    }
+
+    public function responseError()
+    {
+        return $this->error;
+    }
 }

@@ -1,7 +1,6 @@
 <?php
 
 namespace Saraceno\JsonRpc\Services;
-include("services/EmptyResponse.php");
 
 class Response extends EmptyResponse
 {
