@@ -27,7 +27,7 @@ class OilTrend implements TrendManager
         $startDate = $params['startDateISO8601'];
         $endDate = $params['endDateISO8601'];
         if (!self::validateDate($startDate) || !self::validateDate($endDate)) {
-            throw new InvalidArgumentException("Invalid param format, it should be a valid date");
+            throw new InvalidArgumentException("Invalid param format, it should be a valid date 'Y-m-d'");
         }
 
         $client = new GuzzleClient();

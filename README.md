@@ -49,9 +49,9 @@ To **stop** the containers, use instead:
 
 ## **Running tests**
 
-Run the files inside [tests](app/tests) directory as follow:
+Run the files inside [tests](src/Tests) directory as follow:
 
-    docker exec -it php_oil_trend vendor/bin/phpunit tests
+    docker exec -it php_oil_trend vendor/bin/phpunit Tests/
 
 ---
 
